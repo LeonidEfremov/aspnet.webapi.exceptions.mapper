@@ -30,13 +30,22 @@ namespace AspNet.WebApi.Exceptions.Mapper.Tests
         }
 
         [Fact]
-        public void Map()
+        public void GetExceptionType()
         {
             var exceptionMapper = _serviceProvider.GetRequiredService<IExceptionMapper>();
-
             var mappedType = exceptionMapper.Get<ArgumentException>();
 
             Assert.Equal(typeof(BadRequestException), mappedType);
+        }
+
+        [Fact]
+        public void GetApiException()
+        {
+            var exceptionMapper = _serviceProvider.GetRequiredService<IExceptionMapper>();
+            var exception = new ArgumentException();
+            var model = exceptionMapper.Get(exception);
+
+            Assert.IsType<BadRequestException>(model);
         }
     }
 }
