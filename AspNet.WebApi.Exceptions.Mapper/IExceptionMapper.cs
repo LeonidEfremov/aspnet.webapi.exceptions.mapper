@@ -1,9 +1,10 @@
-﻿using AspNet.WebApi.Exceptions.Interfaces;
+﻿using System;
+using AspNet.WebApi.Exceptions.Interfaces;
 
 namespace AspNet.WebApi.Exceptions.Mapper
 {
     public interface IExceptionMapper
     {
-        IApiException Get<T>();
+        Type Get<T>();
     }
 }

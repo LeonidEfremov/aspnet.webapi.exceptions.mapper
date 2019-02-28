@@ -16,11 +16,6 @@ namespace AspNet.WebApi.Exceptions.Mapper
         }
 
         /// <inheritdoc />
-        public IApiException Get<T>()
-        {
-            var result = _options.Exceptions[typeof(T)];
-
-            return (IApiException)result.DeclaringType;
-        }
+        public Type Get<T>() => _options.Exceptions[typeof(T)];
     }
 }

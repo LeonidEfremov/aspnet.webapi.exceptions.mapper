@@ -3,6 +3,7 @@ version: '{build}'
 branches:
   only:
     - master
+    - develop
 
 skip_tags: true
 
@@ -31,7 +32,7 @@ before_build:
 
 build_script:
   - dotnet build --configuration %CONFIGURATION%
-  
+
 after_build:
   - dotnet pack --no-build
 

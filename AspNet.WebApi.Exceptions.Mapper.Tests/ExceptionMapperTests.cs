@@ -28,6 +28,7 @@ namespace AspNet.WebApi.Exceptions.Mapper.Tests
 
             Assert.NotNull(exceptionMapper);
         }
+
         [Fact]
         public void Map()
         {
@@ -35,7 +36,7 @@ namespace AspNet.WebApi.Exceptions.Mapper.Tests
 
             var mappedType = exceptionMapper.Get<ArgumentException>();
 
-            Assert.IsType<BadRequestException>(mappedType);
+            Assert.Equal(typeof(BadRequestException), mappedType);
         }
     }
 }
