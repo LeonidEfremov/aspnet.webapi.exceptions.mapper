@@ -6,4 +6,8 @@
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <IsPackable>True</IsPackable>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AspNet.WebApi.Exceptions" Version="1.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+  </ItemGroup>
 </Project>
