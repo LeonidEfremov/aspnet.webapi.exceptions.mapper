@@ -22,7 +22,7 @@ namespace AspNet.WebApi.Exceptions.Mapper
         public IApiException Get<T>(T exception) where T : Exception
         {
             var apiExceptionType = Get<T>();
-            var apiException = (IApiException)Activator.CreateInstance(apiExceptionType, exception);
+            var apiException = (IApiException)Activator.CreateInstance(apiExceptionType, exception.Message, exception);
 
             return apiException;
         }
