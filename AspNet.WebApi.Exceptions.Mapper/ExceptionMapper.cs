@@ -10,9 +10,6 @@ namespace AspNet.WebApi.Exceptions.Mapper
         private readonly ExceptionMapperOptions _options;
 
         /// <inheritdoc />
-        public ExceptionMapper() : this(new ExceptionMapperOptions()) { }
-
-        /// <inheritdoc />
         public ExceptionMapper(ExceptionMapperOptions options)
         {
             _options = options;
