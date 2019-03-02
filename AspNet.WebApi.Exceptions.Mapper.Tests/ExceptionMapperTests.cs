@@ -12,11 +12,14 @@ namespace AspNet.WebApi.Exceptions.Mapper.Tests
 
         public ExceptionMapperTests()
         {
-            _serviceCollection.AddExceptionMapper(_ =>
-            {
-                _.Map<System.ArgumentException, BadRequestException>();
-                _.Map<System.NullReferenceException, ApiException>();
-            });
+            _serviceCollection
+                .AddExceptionMapper()
+                .AddExceptionMapper(_ =>
+                {
+                    _.Map<System.ArgumentException, ApiException>();
+                    _.Map<System.ArgumentException, BadRequestException>();
+                    _.Map<System.NullReferenceException, ApiException>();
+                });
             _serviceProvider = _serviceCollection.BuildServiceProvider(true);
         }
 
