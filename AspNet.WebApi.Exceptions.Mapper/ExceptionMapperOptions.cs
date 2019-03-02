@@ -8,10 +8,14 @@ namespace AspNet.WebApi.Exceptions.Mapper
     public class ExceptionMapperOptions
     {
         /// <summary>Exception Map Dictionary.</summary>
-        public readonly ConcurrentDictionary<Type, Type> Exceptions;
+        private readonly ConcurrentDictionary<Type, Type> _exceptions;
 
         /// <inheritdoc />
-        public ExceptionMapperOptions() => Exceptions = new ConcurrentDictionary<Type, Type>();
+        public ExceptionMapperOptions() => _exceptions = new ConcurrentDictionary<Type, Type>();
+
+        /// <summary>Get IApiException by Exception.</summary>
+        /// <typeparam name="T">Exception type.</typeparam>
+        public Type Get<T>() where T : Exception => _exceptions[typeof(T)];
 
         /// <summary>Register map for Exception and ApiException.</summary>
         /// <typeparam name="TException"><see cref="Exception" />.</typeparam>
@@ -21,14 +25,14 @@ namespace AspNet.WebApi.Exceptions.Mapper
             var exceptionType = typeof(TException);
             var apiExceptionType = typeof(TApiException);
 
-            if (Exceptions.TryAdd(exceptionType, apiExceptionType))
+            if (_exceptions.TryAdd(exceptionType, apiExceptionType))
             {
                 return;
             }
 
-            if (Exceptions.TryRemove(exceptionType, out _))
+            if (_exceptions.TryRemove(exceptionType, out _))
             {
-                Exceptions.TryAdd(exceptionType, apiExceptionType);
+                _exceptions.TryAdd(exceptionType, apiExceptionType);
             }
         }
     }

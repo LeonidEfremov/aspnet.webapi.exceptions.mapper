@@ -7,7 +7,7 @@ namespace AspNet.WebApi.Exceptions.Mapper
     /// <inheritdoc />
     public class ExceptionMapper : IExceptionMapper
     {
-        private ExceptionMapperOptions _options;
+        private readonly ExceptionMapperOptions _options;
 
         /// <inheritdoc />
         public ExceptionMapper() : this(new ExceptionMapperOptions()) { }
@@ -21,7 +21,7 @@ namespace AspNet.WebApi.Exceptions.Mapper
         /// <inheritdoc />
         public IApiException Get<T>(T exception) where T : Exception
         {
-            var apiExceptionType = _options.Exceptions[typeof(T)];
+            var apiExceptionType = _options.Get<T>();
             var apiException = (IApiException)Activator.CreateInstance(apiExceptionType, exception.Message, exception);
 
             return apiException;
