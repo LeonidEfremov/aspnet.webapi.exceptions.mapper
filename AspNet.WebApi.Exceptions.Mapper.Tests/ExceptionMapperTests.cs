@@ -12,13 +12,12 @@ namespace AspNet.WebApi.Exceptions.Mapper.Tests
 
         public ExceptionMapperTests()
         {
-            _serviceCollection.AddExceptionMapper(SetupExceptionMapper);
+            _serviceCollection.AddExceptionMapper(_ =>
+            {
+                _.Map<System.ArgumentException, BadRequestException>();
+                _.Map<System.NullReferenceException, ApiException>();
+            });
             _serviceProvider = _serviceCollection.BuildServiceProvider(true);
-        }
-
-        private void SetupExceptionMapper(ExceptionMapperOptions options)
-        {
-            options.Map<ArgumentException, BadRequestException>();
         }
 
         [Fact]
@@ -27,15 +26,6 @@ namespace AspNet.WebApi.Exceptions.Mapper.Tests
             var exceptionMapper = _serviceProvider.GetRequiredService<IExceptionMapper>();
 
             Assert.NotNull(exceptionMapper);
-        }
-
-        [Fact]
-        public void GetExceptionType()
-        {
-            var exceptionMapper = _serviceProvider.GetRequiredService<IExceptionMapper>();
-            var mappedType = exceptionMapper.Get<ArgumentException>();
-
-            Assert.Equal(typeof(BadRequestException), mappedType);
         }
 
         [Fact]

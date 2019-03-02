@@ -8,7 +8,20 @@
 
 ## About
 
-Exception mapper.
+Exception Mapper allow to map some Exception to ApiException and treat them in a certain way.
+
+## Usage
+
+``` csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddExceptionMapper(options =>
+    {
+        options.Map<System.ArgumentException, BadRequestException>();
+        options.Map<System.NullReferenceException, ApiException>();
+    });
+}
+```
 
 ## Requirements
 

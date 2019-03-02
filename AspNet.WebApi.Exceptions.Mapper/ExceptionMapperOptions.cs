@@ -4,15 +4,18 @@ using System.Collections.Concurrent;
 
 namespace AspNet.WebApi.Exceptions.Mapper
 {
+    /// <summary>ExceptionMapper Options.</summary>
     public class ExceptionMapperOptions
     {
-        public ConcurrentDictionary<Type, Type> Exceptions;
+        /// <summary>Exception Map Dictionary.</summary>
+        public readonly ConcurrentDictionary<Type, Type> Exceptions;
 
-        public ExceptionMapperOptions()
-        {
-            Exceptions = new ConcurrentDictionary<Type, Type>();
-        }
+        /// <inheritdoc />
+        public ExceptionMapperOptions() => Exceptions = new ConcurrentDictionary<Type, Type>();
 
+        /// <summary>Register map for Exception and ApiException.</summary>
+        /// <typeparam name="TException"><see cref="Exception" />.</typeparam>
+        /// <typeparam name="TApiException"><see cref="ApiException" />.</typeparam>
         public void Map<TException, TApiException>() where TException : Exception where TApiException : IApiException
         {
             var exceptionType = typeof(TException);
